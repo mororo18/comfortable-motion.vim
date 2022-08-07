@@ -17,13 +17,13 @@ set cpo&vim
 
 " Default parameter values
 if !exists('g:comfortable_motion_interval')
-  let g:comfortable_motion_interval = 1000.0 / 60
+  let g:comfortable_motion_interval = 1000.0 / 30
 endif
 if !exists('g:comfortable_motion_friction')
-  let g:comfortable_motion_friction = 80.0
+  let g:comfortable_motion_friction = 150.0
 endif
 if !exists('g:comfortable_motion_air_drag')
-  let g:comfortable_motion_air_drag = 2.0
+  let g:comfortable_motion_air_drag = 4.0
 endif
 if !exists('g:comfortable_motion_scroll_down_key')
   let g:comfortable_motion_scroll_down_key = "\<C-e>"
@@ -63,8 +63,10 @@ function! s:tick(timer_id)
     let l:st.delta -= l:int_delta
     if l:int_delta > 0
       execute "normal! " . string(abs(l:int_delta)) . g:comfortable_motion_scroll_down_key
+      execute "normal! " . string(abs(l:int_delta)) . "j"
     elseif l:int_delta < 0
       execute "normal! " . string(abs(l:int_delta)) . g:comfortable_motion_scroll_up_key
+      execute "normal! " . string(abs(l:int_delta)) . "k"
     else
       " Do nothing
     endif
